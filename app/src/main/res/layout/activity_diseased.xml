@@ -5,15 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DiseasedActivity">
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+
+    <SearchView
+        android:id="@+id/search"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="مريض"
-        android:textSize="50sp"
+        tools:ignore="MissingConstraints">
+    </SearchView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rec_v"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/search"
+
+        />
+
+    <FrameLayout
+        android:id="@+id/pat_flFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rec_v"
+ >
+
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:menu="@menu/nav_pat"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
