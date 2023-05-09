@@ -6,7 +6,7 @@
     android:layout_margin="16dp">
 
             <ImageView
-                android:id="@+id/topicimage"
+                android:id="@+id/topic_image"
                 android:layout_gravity="center"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -15,7 +15,7 @@
                 />
 
             <TextView
-                android:id="@+id/topicname"
+                android:id="@+id/topic_name"
                 android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

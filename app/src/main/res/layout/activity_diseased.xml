@@ -14,27 +14,17 @@
     </SearchView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rec_v"
+        android:id="@+id/all_Topic"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/search"
+        android:layout_height="0dp"
 
-        />
-
-    <FrameLayout
-        android:id="@+id/pat_flFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_Navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/rec_v"
- >
-
-    </FrameLayout>
+        app:layout_constraintTop_toBottomOf="@+id/search" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
+        android:id="@+id/bottom_Navigation"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         app:layout_constraintBottom_toBottomOf="parent"
