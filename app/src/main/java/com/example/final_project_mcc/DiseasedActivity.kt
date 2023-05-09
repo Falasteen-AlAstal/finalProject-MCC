@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_diseased.*
 class  DiseasedActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     lateinit var progressDialog: ProgressDialog
-    private lateinit var notesArrayList: ArrayList<TopicMoodle>
+    private lateinit var topicArrayList: ArrayList<TopicMoodle>
     private lateinit var bottomNavigationView: BottomNavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +27,7 @@ class  DiseasedActivity : AppCompatActivity() {
         progressDialog.setMessage("جاري تحميل البيانات")
         progressDialog.setCancelable(false)
         all_Topic.layoutManager = LinearLayoutManager(this)
-        notesArrayList = arrayListOf<TopicMoodle>()
+        topicArrayList = arrayListOf<TopicMoodle>()
         getAllTopic()
 
 
@@ -69,14 +69,14 @@ class  DiseasedActivity : AppCompatActivity() {
             .addOnSuccessListener { result ->
                 progressDialog.dismiss()
                 for (document in result) {
-                    val note= document.toObject(TopicMoodle::class.java)
-                    notesArrayList.add(note)
+                    val topic= document.toObject(TopicMoodle::class.java)
+                   topicArrayList.add(topic)
                     Log.d("Read Data", "${document.id} => ${document.data}")
 
 
                 }
 
-                all_Topic.adapter = TopicAdapter(this,notesArrayList)
+                all_Topic.adapter = TopicAdapter(this,topicArrayList)
 
             }
             .addOnFailureListener { exception ->
