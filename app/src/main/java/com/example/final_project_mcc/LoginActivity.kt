@@ -134,9 +134,11 @@ class LoginActivity : AppCompatActivity() {
                     if (role != null && role == "doctor") {
                         val intent = Intent(this, DoctorActivity::class.java)
                         startActivity(intent)
+                        finish()
                     } else if (role != null && role == "Patient") {
                         val intent = Intent(this, DiseasedActivity::class.java)
                         startActivity(intent)
+                        finish()
                     }
                 }
             }

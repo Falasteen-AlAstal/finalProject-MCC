@@ -54,20 +54,17 @@ class ProfileActivity : AppCompatActivity() {
                     val middleName = document.getString("middleName")
                     val lastName  = document.getString("lastName")
                     val address  = document.getString("address")
-                    val dateBirth  = document.getString("dateBirth")
-                    val phone  = document.getString("phone")
-                    val dateFormat = SimpleDateFormat("dd/MM/yyyy")
-
-                    val dateOfBirth: Date = dateFormat.parse(dateBirth)
+                    val dateBirth  = document.getDate("dateBirth")
+                    val dateFormat = SimpleDateFormat("MM/dd/yy")
+                    val formattedDate = dateFormat.format(dateBirth)
                     Log.d("Read Data", "${document.id} => ${document.data}")
-
-
+                    val phone  = document.getString("phone")
                     First_Name.setText(firstName)
                     middle_name.setText(middleName)
                     last_name.setText(lastName)
                     Text_Email.setText(email)
                     Text_Address.setText(address)
-                    date_birth.setText(dateFormat.format(dateOfBirth))
+                    date_birth.setText(formattedDate)
                     editText_Phone.setText(phone)
 
                 }
