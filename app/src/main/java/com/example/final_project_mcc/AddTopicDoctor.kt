@@ -108,7 +108,7 @@ class AddTopicDoctor : AppCompatActivity(), IPickResult {
     }
 
     private fun AddTopic(
-        id:String,
+        idUser:String,
         name: String,
         description: String,
         image: String,
@@ -116,9 +116,10 @@ class AddTopicDoctor : AppCompatActivity(), IPickResult {
         video: String,
     ) {
 
+
         var Topic =
             hashMapOf(
-                "id" to id,
+                "idUser" to idUser,
                 "name" to name,
                 "description" to description,
                 "image" to image,
@@ -128,6 +129,15 @@ class AddTopicDoctor : AppCompatActivity(), IPickResult {
         db.collection("topic")
             .add(Topic)
             .addOnSuccessListener { documentReference ->
+                val id = documentReference.id
+                db.collection("topic").document(documentReference.id)
+                    .update("id", id)
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "تمت الاضافة بنجاح", Toast.LENGTH_LONG).show()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this, "فشلت الاضافة", Toast.LENGTH_LONG).show()
+                    }
                 Toast.makeText(this, "تمت الاضافة بنجاح", Toast.LENGTH_LONG).show()
             }.addOnFailureListener {
                 Toast.makeText(this, "فشلت الاضافة", Toast.LENGTH_LONG).show()

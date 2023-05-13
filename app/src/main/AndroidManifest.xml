@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.final_project_mcc">
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
 
     <application
         android:allowBackup="true"
@@ -40,9 +47,22 @@
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".UpdateDeleteTopic"
+            android:exported="false" />
+        <activity
+            android:name=".AddTopicDoctor"
+            android:exported="false" />
+        <activity
+            android:name=".DoctorBottomNavigation"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />
+
+
+
     </application>
 
 </manifest>

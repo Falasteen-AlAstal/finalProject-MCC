@@ -24,10 +24,10 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        val currentUser = auth.currentUser
+      /* val currentUser = auth.currentUser
         if(currentUser != null){
             updateUI()
-        }
+        }*/
 
 
     }
@@ -99,7 +99,7 @@ class LoginActivity : AppCompatActivity() {
                                   val role= document.getString("role")
                                   if (role != null && role == "doctor") {
                                       Toast.makeText(this , " تم عملية تسجيل الدخول بنجاح" , Toast.LENGTH_SHORT).show()
-                                      val intent = Intent(this, DoctorActivity::class.java)
+                                      val intent = Intent(this, DoctorBottomNavigation::class.java)
                                       startActivity(intent)
                                   } else if (role != null && role == "Patient") {
                                       Toast.makeText(this , " تم عملية تسجيل الدخول بنجاح" , Toast.LENGTH_SHORT).show()
@@ -132,7 +132,7 @@ class LoginActivity : AppCompatActivity() {
                 for (document in result) {
                     val role= document.getString("role")
                     if (role != null && role == "doctor") {
-                        val intent = Intent(this, DoctorActivity::class.java)
+                        val intent = Intent(this, DoctorBottomNavigation::class.java)
                         startActivity(intent)
                         finish()
                     } else if (role != null && role == "Patient") {

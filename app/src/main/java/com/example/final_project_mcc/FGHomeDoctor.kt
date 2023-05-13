@@ -14,6 +14,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.ArrayList
 
+
 class FGHomeDoctor : Fragment() {
     var recview: RecyclerView? = null
     var FB: FloatingActionButton? = null
