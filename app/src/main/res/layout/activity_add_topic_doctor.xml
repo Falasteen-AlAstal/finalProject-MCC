@@ -33,6 +33,7 @@
             android:layout_height="144dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/camerabtnshape"
+            android:contentDescription="@string/app_name"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"

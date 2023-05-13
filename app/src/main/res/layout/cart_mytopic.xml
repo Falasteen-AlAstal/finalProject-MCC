@@ -27,7 +27,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/topic_image"
+                    android:id="@+id/myTopic_image"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginEnd="15dp"
@@ -38,7 +38,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/topic_name"
+                    android:id="@+id/myTopic_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="30dp"
@@ -48,11 +48,11 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/topic_image"
+                    app:layout_constraintEnd_toStartOf="@+id/myTopic_image"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/follow"
+                    android:id="@+id/Unfollow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -64,7 +64,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.161"
-                    app:srcCompat="@drawable/baseline_add_alert_24" />
+                    app:srcCompat="@drawable/remove" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -141,7 +141,8 @@ class RegisterActivity : AppCompatActivity() {
             "email" to email ,
             "phone" to phone ,
             "password" to password,
-            "role" to role)
+            "role" to role,
+            )
 
         db.collection("users")
             .add(user)

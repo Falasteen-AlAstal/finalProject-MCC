@@ -1,5 +1,6 @@
 package com.example.final_project_mcc
 
+
 import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -40,8 +41,8 @@ class  DiseasedActivity : AppCompatActivity() {
                     true
                 }
                 R.id.my_topics -> {
-                  //  val intent = Intent(this, MyTopicsActivity::class.java)
-                 //   startActivity(intent)
+                    val intent = Intent(this, MyTopicActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 R.id.chat -> {
@@ -70,8 +71,9 @@ class  DiseasedActivity : AppCompatActivity() {
                 progressDialog.dismiss()
                 for (document in result) {
                     val topic= document.toObject(TopicMoodle::class.java)
-                   topicArrayList.add(topic)
+                    topicArrayList.add(topic)
                     Log.d("Read Data", "${document.id} => ${document.data}")
+
 
 
                 }
