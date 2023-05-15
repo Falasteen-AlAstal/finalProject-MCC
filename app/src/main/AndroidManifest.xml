@@ -36,6 +36,9 @@
             android:name=".DoctorActivity"
             android:exported="false" />
         <activity
+            android:name=".Chatting.Contacts_Activity"
+            android:exported="true" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
