@@ -1,18 +1,24 @@
 package com.example.final_project_mcc
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.final_project_mcc.MessagesAdapter
-import com.example.final_project_mcc.R
-import com.google.firebase.database.*
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
+import java.text.DateFormat
+import java.util.Calendar
 
-class ChatActivity : AppCompatActivity() {
+class ContactsChatting : AppCompatActivity() {
 
     private lateinit var messagesRecyclerView: RecyclerView
     private lateinit var messageEditText: EditText
@@ -22,15 +28,15 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var receiverUid: String
     private lateinit var messagesRef: DatabaseReference
 
-    private lateinit var messagesAdapter: MessagesAdapter
-    private val messagesList = mutableListOf<Message>()
+    private lateinit var messagesAdapter: ChatMessageAdapter
+    private val messagesList = mutableListOf<ChatMessageModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat)
+        setContentView(R.layout.activity_contacts_chatting)
 
-
-        receiverUid = "UTw20GLq3Wd4fHzBHCjoFKWDN2i1"
-        senderUid = "LvzshbxSTBe6Dh3PCuiRE9uDyPs2"
+        senderUid = intent.getStringExtra("senderId")!!
+        receiverUid =  Firebase.auth.currentUser!!.uid
 
         messagesRecyclerView = findViewById(R.id.messages_recycler_view)
         messageEditText = findViewById(R.id.message_input)
@@ -38,61 +44,57 @@ class ChatActivity : AppCompatActivity() {
 
         messagesRef = FirebaseDatabase.getInstance().getReference("chat")
 
-        messagesAdapter = MessagesAdapter(this, messagesList,senderUid)
+        messagesAdapter = ChatMessageAdapter(
+            this, messagesList,
+            senderUid
+        )
         messagesRecyclerView.layoutManager = LinearLayoutManager(this)
         messagesRecyclerView.adapter = messagesAdapter
 
         sendButton.setOnClickListener {
             val messageText = messageEditText.text.toString().trim()
-            var timestamp = System.currentTimeMillis()
-
-            Log.e("Hanan",messageText.toString())
+            Log.e("kh", messageText.toString())
             if (messageText.isNotEmpty()) {
-                sendMessage(messageText,timestamp)
+                sendMessage(messageText)
                 messageEditText.setText("")
             }
         }
 
         messagesRef.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val message = snapshot.getValue(Message::class.java)
+                val message = snapshot.getValue(ChatMessageModel::class.java)
                 if (message != null) {
                     messagesList.add(message)
 
-                    messagesAdapter.
-                    notifyItemInserted(messagesList.size - 1)
+                    messagesAdapter.notifyItemInserted(messagesList.size - 1)
 
-                    messagesRecyclerView.
-                    scrollToPosition(messagesList.size - 1)
+                    messagesRecyclerView.scrollToPosition(messagesList.size - 1)
                 }
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                Log.d("Hanan", "onDataChange: Time snapshot: " + snapshot);
-            }
 
+            }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
 
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
-            override fun onCancelled(error: DatabaseError) {
-                System.err.println("Listener was cancelled");
-            }
+            override fun onCancelled(error: DatabaseError) {}
         })
     }
 
-    private fun sendMessage(messageText: String, timestamp: Long) {
-        val message = Message(messageText, senderUid, receiverUid, timestamp)
-        Log.e("Hanan","1")
+    private fun sendMessage(messageText: String) {
+        val time = Calendar.getInstance().time
+        val timestamp = DateFormat.getTimeInstance(DateFormat.SHORT).format(time)
+        Toast.makeText(this, timestamp, Toast.LENGTH_LONG).show()
+        // val timestamp = System.currentTimeMillis()
+        val message = ChatMessageModel(messageText, senderUid, receiverUid, timestamp)
+        Log.e("kh", timestamp.toString())
 
         FirebaseDatabase.getInstance().reference.child("chat").push().setValue(message)
-
-        Log.e("Hanan","2")
-
-
-
     }
+
 }
 

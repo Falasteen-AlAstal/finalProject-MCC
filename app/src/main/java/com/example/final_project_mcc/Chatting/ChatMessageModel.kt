@@ -1,10 +1,8 @@
 package com.example.final_project_mcc
 
-
-data class Message(
+data class ChatMessageModel (
     val text: String = "",
     val senderId: String = "",
     val receiverId :String = "",
-    val timestamp: Long = 0
-
-)
+    val timestamp: String = ""
+        )
