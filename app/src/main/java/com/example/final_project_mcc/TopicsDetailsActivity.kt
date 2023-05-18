@@ -163,7 +163,7 @@ class TopicsDetailsActivity : AppCompatActivity() {
 
 
             .addOnFailureListener { e ->
-                //
+
                 Log.e("Read Data", "An error occurred while fetching data from the Users table")
             }
     }
@@ -182,7 +182,7 @@ class TopicsDetailsActivity : AppCompatActivity() {
                 progressDialog.dismiss()
 
                 if (result.isEmpty) {
-                    // لا توجد تعليقات
+
                     val emptyMessage = "لا يوجد تعليقات"
 
                     emptyTextView.text = emptyMessage

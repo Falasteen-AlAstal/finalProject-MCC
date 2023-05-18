@@ -1,5 +1,7 @@
 package com.example.final_project_mcc
 
+import android.app.DatePickerDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,12 +13,22 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_diseased.*
 import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.activity_profile.First_Name
+import kotlinx.android.synthetic.main.activity_profile.Text_Address
+import kotlinx.android.synthetic.main.activity_profile.Text_Email
+import kotlinx.android.synthetic.main.activity_profile.date_birth
+import kotlinx.android.synthetic.main.activity_profile.editText_Phone
+import kotlinx.android.synthetic.main.activity_profile.last_name
+import kotlinx.android.synthetic.main.activity_profile.middle_name
+import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.android.synthetic.main.user_profile.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
+    var myCalendar = Calendar.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -37,6 +49,34 @@ class ProfileActivity : AppCompatActivity() {
                 editText_Phone.text.toString()
             )
 
+        }
+
+        butLogout.setOnClickListener {
+
+            Firebase.auth.signOut()
+
+            val i = Intent(this, LoginActivity::class.java)
+            startActivity(i)
+            Toast.makeText(this , "successfully singOut" , Toast.LENGTH_SHORT).show()
+        }
+
+
+        val date =
+            DatePickerDialog.OnDateSetListener { view, year, month, day ->
+                myCalendar[Calendar.YEAR] = year
+                myCalendar[Calendar.MONTH] = month
+                myCalendar[Calendar.DAY_OF_MONTH] = day
+                updateLabel()
+            }
+
+        date_birth.setOnClickListener {
+            DatePickerDialog(
+                this,
+                date,
+                myCalendar[Calendar.YEAR],
+                myCalendar[Calendar.MONTH],
+                myCalendar[Calendar.DAY_OF_MONTH]
+            ).show()
         }
 
     }
@@ -109,15 +149,16 @@ class ProfileActivity : AppCompatActivity() {
             }
     }*/
 
-    fun updateUser(
-        firstName: String,
-        middleName: String,
-        lastName: String,
-        dateBirth: String,
-        address: String,
-        email: String,
-        phone: String
-    ) {
+    fun updateUser(firstName: String, middleName: String, lastName: String,
+                   dateBirth: String,
+                   address: String,
+                   email: String,
+                   phone: String)
+
+    {
+        val dateFormat = SimpleDateFormat("MM/dd/yy")
+        val date: Date = dateFormat.parse(dateBirth)
+
         val currentUser = auth.currentUser
         val newData = hashMapOf<String, Any>()
         newData["firstName"] = firstName
@@ -125,12 +166,12 @@ class ProfileActivity : AppCompatActivity() {
         newData["lastName"] = lastName
         newData["email"] = email
         newData["address"] = address
-        newData["dateBirth"] = dateBirth
+        newData["dateBirth"] = date
         newData["phone"] = phone
 
             db.collection("users").whereEqualTo("id", currentUser!!.uid).get()
             .addOnSuccessListener { querySnapshot ->
-                db.collection("users").document(/*Id*/ querySnapshot.documents.get(0).id)
+                db.collection("users").document(querySnapshot.documents.get(0).id)
                     .update(newData)
                 Toast.makeText(this,"تم التعديل", Toast.LENGTH_LONG).show()
             }
@@ -139,7 +180,11 @@ class ProfileActivity : AppCompatActivity() {
             }
     }
 
-
+    private fun updateLabel() {
+        val myFormat = "MM/dd/yy"
+        val dateFormat = SimpleDateFormat(myFormat, Locale.US)
+        date_birth.setText(dateFormat.format(myCalendar.getTime()))
+    }
 
 
 
