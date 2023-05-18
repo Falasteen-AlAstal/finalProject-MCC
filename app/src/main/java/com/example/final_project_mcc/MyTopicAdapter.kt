@@ -53,6 +53,7 @@ class MyTopicAdapter(var activity: Activity, var data:ArrayList<TopicMoodle>): R
             i.putExtra("TopicInformation", data[position].information)
             i.putExtra("TopicVideo", data[position].video)
             i.putExtra("TopicImage", data[position].image)
+            i.putExtra("id" ,data[position].id)
 
             activity.startActivity(i)
 

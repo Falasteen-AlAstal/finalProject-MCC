@@ -18,7 +18,7 @@ class Contacts_Activity : AppCompatActivity() {
     lateinit var contactRV: RecyclerView
     lateinit var contacts : ArrayList<ContactModel>
     private var db = Firebase.firestore
-    lateinit var reciverRole: String
+    var reciverRole: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +31,7 @@ class Contacts_Activity : AppCompatActivity() {
         contacts = ArrayList()
 
         var uid = Firebase.auth.currentUser!!.uid
+
         db.collection("users").whereEqualTo("id", uid)
             .get()
             .addOnSuccessListener { result ->
@@ -41,7 +42,44 @@ class Contacts_Activity : AppCompatActivity() {
                     } else if (role != null && role == "Patient") {
                         reciverRole = "doctor"
                     }
+
                 }
+                Log.e("Kh", "${reciverRole}")
+
+                var contactsAdapter = ContactAdapter(this, contacts)
+
+                db.collection("users")
+                    .whereEqualTo("role", reciverRole)
+                    .get()
+                    .addOnSuccessListener {
+                        if (!it.isEmpty) {
+                            for (data in it.documents) {
+                                val user: ContactModel? = data.toObject(ContactModel::class.java)
+                                contacts.add(user!!)
+                            }
+                            contactsAdapter.notifyDataSetChanged()
+                            contactRV.adapter = contactsAdapter
+                            Log.e("Kh", "Succeeded")
+                        }
+                    }
+                    .addOnFailureListener {
+                        Log.e("Kh", "Failed")
+                    }
+            }
+       /* db.collection("users").whereEqualTo("id", uid)
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val role = document.getString("role")
+                    if (role != null && role == "doctor") {
+                        reciverRole = "Patient"
+                    } else if (role != null && role == "Patient") {
+                        reciverRole = "doctor"
+                    }
+
+                }
+                Log.e("Kh", "${reciverRole}")
+
             }
 
                 var contactsAdabter = ContactAdapter(this, contacts)
@@ -67,7 +105,7 @@ class Contacts_Activity : AppCompatActivity() {
                         }
                     }.addOnFailureListener {
                         Log.e("Kh", "Fialed")
-                    }
+                    }*/
 
 
             }

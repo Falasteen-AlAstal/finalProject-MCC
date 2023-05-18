@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.final_project_mcc.Chatting.Contacts_Activity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -46,7 +47,7 @@ class  DiseasedActivity : AppCompatActivity() {
                     true
                 }
                 R.id.chat -> {
-                   val intent = Intent(this, ChatActivity::class.java)
+                   val intent = Intent(this, Contacts_Activity::class.java)
                     startActivity(intent)
                     true
                 }

@@ -35,8 +35,8 @@ class ChatMessageAdapter(
         layoutParams.gravity = if (message.senderId == currentUserUid)
             Gravity.END
         else{
-            holder.messageText.setBackgroundColor(Color.GRAY)
-            holder.messageText.setTextColor(Color.BLACK)
+         //   holder.messageText.setBackgroundColor(Color.GRAY)
+           // holder.messageText.setTextColor(Color.BLACK)
             Gravity.START
         }
 

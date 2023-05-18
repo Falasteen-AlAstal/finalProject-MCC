@@ -7,5 +7,6 @@ package com.example.final_project_mcc
      var description: String = "",
      var information:String = "",
      var video: String = "",
-     var follow : Boolean = false
+     var follow : Boolean = false,
+     var comment : String = ""
  )

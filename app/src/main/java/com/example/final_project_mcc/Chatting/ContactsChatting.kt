@@ -35,8 +35,8 @@ class ContactsChatting : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contacts_chatting)
 
-        senderUid = intent.getStringExtra("senderId")!!
-        receiverUid =  Firebase.auth.currentUser!!.uid
+        receiverUid   = intent.getStringExtra("reciverId")!!
+        senderUid =  Firebase.auth.currentUser!!.uid
 
         messagesRecyclerView = findViewById(R.id.messages_recycler_view)
         messageEditText = findViewById(R.id.message_input)

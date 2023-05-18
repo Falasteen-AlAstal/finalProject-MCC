@@ -2,11 +2,6 @@ package com.example.final_project_mcc
 
 import android.app.Activity
 import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.Color.GREEN
-import android.provider.CalendarContract
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +13,7 @@ import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -49,15 +45,19 @@ class TopicAdapter (var activity: Activity, var data:ArrayList<TopicMoodle>): Re
         holder.name.text = data[position].name
         Glide.with(activity).load(data[position].image).into(holder.imageTopic)
         holder.itemView.setOnClickListener {
-
+            val userId = Firebase.auth.currentUser?.uid
             val i = Intent(activity, TopicsDetailsActivity::class.java)
             i.putExtra("TopicName", data[position].name)
             i.putExtra("TopicDescription", data[position].description)
             i.putExtra("TopicInformation", data[position].information)
             i.putExtra("TopicVideo", data[position].video)
             i.putExtra("TopicImage", data[position].image)
+            i.putExtra("id" ,data[position].id)
+         //   addCommentToTopic(data[position].id ,i.putExtra("comment" , data[position].comment) ,
 
             activity.startActivity(i)
+
+
         }
 
 
@@ -102,6 +102,7 @@ class TopicAdapter (var activity: Activity, var data:ArrayList<TopicMoodle>): Re
         override fun getItemCount(): Int {
             return data.size
         }
+
 
 
 

@@ -3,6 +3,7 @@ package com.example.final_project_mcc
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -41,7 +42,7 @@ class ProfileActivity : AppCompatActivity() {
     }
 
 
-    fun getUser(){
+    fun getUser() {
         val currentUser = auth.currentUser
         db.collection("users").whereEqualTo("id" , currentUser!!.uid)
             .get()
@@ -80,10 +81,10 @@ class ProfileActivity : AppCompatActivity() {
 
 
 
-    fun updateUser(firstName: String, middleName: String, lastName: String, dateBirth: String,
+    /*fun updateUser(firstName: String, middleName: String, lastName: String, dateBirth: String,
                    address : String,
                    email: String,
-                   phone :String,)
+                   phone :String)
 
     {
         val currentUser = auth.currentUser
@@ -103,10 +104,44 @@ class ProfileActivity : AppCompatActivity() {
                 Log.e("Update Data", "DocumentSnapshot successfully updated!")
             }
             .addOnFailureListener { e ->
-                Log.e("Update Data", "Error updating document")
+                Log.e("Update Data", "Error updating document" , e)
 
             }
+    }*/
+
+    fun updateUser(
+        firstName: String,
+        middleName: String,
+        lastName: String,
+        dateBirth: String,
+        address: String,
+        email: String,
+        phone: String
+    ) {
+        val currentUser = auth.currentUser
+        val newData = hashMapOf<String, Any>()
+        newData["firstName"] = firstName
+        newData["middleName"] = middleName
+        newData["lastName"] = lastName
+        newData["email"] = email
+        newData["address"] = address
+        newData["dateBirth"] = dateBirth
+        newData["phone"] = phone
+
+            db.collection("users").whereEqualTo("id", currentUser!!.uid).get()
+            .addOnSuccessListener { querySnapshot ->
+                db.collection("users").document(/*Id*/ querySnapshot.documents.get(0).id)
+                    .update(newData)
+                Toast.makeText(this,"تم التعديل", Toast.LENGTH_LONG).show()
+            }
+            .addOnFailureListener { exception ->
+                Log.e("bb", "" + exception.message)
+            }
     }
+
+
+
+
 
 
 }
