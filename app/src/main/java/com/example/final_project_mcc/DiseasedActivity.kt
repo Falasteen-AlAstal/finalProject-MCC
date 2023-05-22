@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.final_project_mcc.Chatting.Contacts_Activity
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -61,6 +62,23 @@ class  DiseasedActivity : AppCompatActivity() {
 
 
         }
+
+
+        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+
+                searchTopic(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (newText.isEmpty()) {
+                    topicArrayList.clear()
+                    getAllTopic()
+                }
+                return false
+            }
+        })
     }
 
     fun getAllTopic(){
@@ -89,4 +107,28 @@ class  DiseasedActivity : AppCompatActivity() {
 
     }
 
+
+    private fun searchTopic(query: String) {
+        progressDialog.show()
+        topicArrayList.clear() // Clear the existing topic list
+
+        db.collection("topic")
+            .whereEqualTo("name", query) // Assuming the field name for the topic title is "title"
+            .get()
+            .addOnSuccessListener { result ->
+                progressDialog.dismiss()
+                for (document in result) {
+                    val topic = document.toObject(TopicMoodle::class.java)
+                    topicArrayList.add(topic)
+                    Log.d("Read Data", "${document.id} => ${document.data}")
+                }
+
+                all_Topic.adapter = TopicAdapter(this, topicArrayList)
+            }
+            .addOnFailureListener { exception ->
+                progressDialog.dismiss()
+                Log.w("Read Data", "Error getting documents.", exception)
+            }
+    }
 }
+
