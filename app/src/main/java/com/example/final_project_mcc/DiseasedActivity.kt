@@ -110,10 +110,10 @@ class  DiseasedActivity : AppCompatActivity() {
 
     private fun searchTopic(query: String) {
         progressDialog.show()
-        topicArrayList.clear() // Clear the existing topic list
+        topicArrayList.clear()
 
         db.collection("topic")
-            .whereEqualTo("name", query) // Assuming the field name for the topic title is "title"
+            .whereEqualTo("name", query)
             .get()
             .addOnSuccessListener { result ->
                 progressDialog.dismiss()
