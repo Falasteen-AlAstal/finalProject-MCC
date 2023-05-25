@@ -7,6 +7,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.FirebaseApp
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -20,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
     private  lateinit var role : String
+    private lateinit var analytics: FirebaseAnalytics
 
 
     override fun onStart() {
@@ -37,8 +41,11 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+
+
         auth = Firebase.auth
         db = Firebase.firestore
+        analytics = Firebase.analytics
         role = ""
         but_Login.setOnClickListener {
 
@@ -78,6 +85,8 @@ class LoginActivity : AppCompatActivity() {
 
         }
 
+        screenTrack("LoginActivity" ,"Login")
+
 
 
 
@@ -94,6 +103,7 @@ class LoginActivity : AppCompatActivity() {
                             .get()
                           .addOnSuccessListener { result ->
                               for (document in result) {
+                                  logLoginEvent()
                                   Log.e("data", "${document.id} => ${document.data}")
                                   Log.e("role" , "${document.getString("role")}")
                                   val role= document.getString("role")
@@ -145,6 +155,23 @@ class LoginActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.e("Falasteen Error", "Error getting document: ", exception)
             }
+    }
+
+
+
+    fun screenTrack(screenClass:String , screenName: String){
+
+        analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW){
+
+            param(FirebaseAnalytics.Param.SCREEN_CLASS , screenClass)
+            param(FirebaseAnalytics.Param.SCREEN_NAME , screenName)
+
+        }
+    }
+
+
+    private fun logLoginEvent() {
+        analytics.logEvent(FirebaseAnalytics.Event.LOGIN, null)
     }
 
 

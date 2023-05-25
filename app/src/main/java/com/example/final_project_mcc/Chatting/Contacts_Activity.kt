@@ -32,7 +32,7 @@ class Contacts_Activity : AppCompatActivity() {
 
         var uid = Firebase.auth.currentUser!!.uid
 
-        db.collection("users").whereEqualTo("id", uid)
+       /* db.collection("users").whereEqualTo("id", uid)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
@@ -41,9 +41,11 @@ class Contacts_Activity : AppCompatActivity() {
                         reciverRole = "Patient"
                     } else if (role != null && role == "Patient") {
                         reciverRole = "doctor"
-                    }
+                    }*/
 
-                }
+                    reciverRole = intent.getStringExtra("role")!!
+
+
                 Log.e("Kh", "${reciverRole}")
 
                 var contactsAdapter = ContactAdapter(this, contacts)
@@ -55,7 +57,11 @@ class Contacts_Activity : AppCompatActivity() {
                         if (!it.isEmpty) {
                             for (data in it.documents) {
                                 val user: ContactModel? = data.toObject(ContactModel::class.java)
-                                contacts.add(user!!)
+                                val id = data.getString("id")
+                                if (id != uid){
+                                    contacts.add(user!!)
+                                }
+
                             }
                             contactsAdapter.notifyDataSetChanged()
                             contactRV.adapter = contactsAdapter
@@ -66,6 +72,11 @@ class Contacts_Activity : AppCompatActivity() {
                         Log.e("Kh", "Failed")
                     }
             }
+}
+
+
+
+
        /* db.collection("users").whereEqualTo("id", uid)
             .get()
             .addOnSuccessListener { result ->
@@ -108,5 +119,4 @@ class Contacts_Activity : AppCompatActivity() {
                     }*/
 
 
-            }
-    }
+

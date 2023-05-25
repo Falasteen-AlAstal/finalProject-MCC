@@ -10,7 +10,11 @@ import android.view.MenuItem
 import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.final_project_mcc.Chatting.Contacts_Activity
+import com.example.final_project_mcc.Chatting.contactsType
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -21,18 +25,22 @@ class  DiseasedActivity : AppCompatActivity() {
     lateinit var progressDialog: ProgressDialog
     private lateinit var topicArrayList: ArrayList<TopicMoodle>
     private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var analytics: FirebaseAnalytics
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diseased)
 
+
+
         db = Firebase.firestore
+        analytics = Firebase.analytics
         progressDialog = ProgressDialog(this)
         progressDialog.setMessage("جاري تحميل البيانات")
         progressDialog.setCancelable(false)
         all_Topic.layoutManager = LinearLayoutManager(this)
         topicArrayList = arrayListOf<TopicMoodle>()
         getAllTopic()
-
+        screenTrack("DiseasedActivity" ,"Home")
 
         bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_Navigation)
         bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
@@ -48,7 +56,7 @@ class  DiseasedActivity : AppCompatActivity() {
                     true
                 }
                 R.id.chat -> {
-                   val intent = Intent(this, Contacts_Activity::class.java)
+                   val intent = Intent(this, contactsType::class.java)
                     startActivity(intent)
                     true
                 }
@@ -124,11 +132,33 @@ class  DiseasedActivity : AppCompatActivity() {
                 }
 
                 all_Topic.adapter = TopicAdapter(this, topicArrayList)
+
+                logSearchEvent(query)
             }
             .addOnFailureListener { exception ->
                 progressDialog.dismiss()
                 Log.w("Read Data", "Error getting documents.", exception)
             }
     }
+
+
+    fun screenTrack (screenClass:String , screenName: String){
+
+        analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW){
+
+            param(FirebaseAnalytics.Param.SCREEN_CLASS , screenClass)
+            param(FirebaseAnalytics.Param.SCREEN_NAME , screenName)
+
+        }
+    }
+
+    private fun logSearchEvent(query: String) {
+        val params = Bundle().apply {
+            putString(FirebaseAnalytics.Param.SEARCH_TERM, query)
+        }
+        analytics.logEvent(FirebaseAnalytics.Event.SEARCH, params)
+    }
+
+
 }
 

@@ -2,12 +2,16 @@ package com.example.final_project_mcc
 
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -24,13 +28,21 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private  lateinit var role : String
     var myCalendar = Calendar.getInstance()
+    private lateinit var analytics: FirebaseAnalytics
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+
+
+
+
+
+
         role = intent.getStringExtra("role").toString()
         auth = Firebase.auth
         db = Firebase.firestore
+        analytics = Firebase.analytics
 
         but_Register.setOnClickListener {
 
@@ -78,7 +90,7 @@ class RegisterActivity : AppCompatActivity() {
                     myCalendar[Calendar.DAY_OF_MONTH]
                 ).show()
             }
-
+        screenTrack("RegisterActivity" , "Register")
 
 
 
@@ -107,6 +119,8 @@ class RegisterActivity : AppCompatActivity() {
                     editText_Password.text.toString(),
                     role
                 )
+
+                logSignUpEvent()
 
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
@@ -160,6 +174,25 @@ class RegisterActivity : AppCompatActivity() {
         val dateFormat = SimpleDateFormat(myFormat, Locale.US)
         date_birth.setText(dateFormat.format(myCalendar.getTime()))
     }
+
+
+    fun screenTrack(screenClass:String , screenName: String){
+
+        analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW){
+
+            param(FirebaseAnalytics.Param.SCREEN_CLASS , screenClass)
+            param(FirebaseAnalytics.Param.SCREEN_NAME , screenName)
+
+        }
+    }
+
+
+    private fun logSignUpEvent() {
+        analytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, null)
+    }
+
+
+
 
 
 

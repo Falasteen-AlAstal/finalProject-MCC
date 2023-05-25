@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -29,12 +32,14 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
     var myCalendar = Calendar.getInstance()
+    private lateinit var analytics: FirebaseAnalytics
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
         db = Firebase.firestore
         auth = Firebase.auth
+        analytics = Firebase.analytics
         val currentUser = auth.currentUser
         Log.e("currentUser" ,"${currentUser!!.uid}")
 
@@ -78,6 +83,9 @@ class ProfileActivity : AppCompatActivity() {
                 myCalendar[Calendar.DAY_OF_MONTH]
             ).show()
         }
+
+
+        screenTrack("ProfileActivity","Profile")
 
     }
 
@@ -184,6 +192,17 @@ class ProfileActivity : AppCompatActivity() {
         val myFormat = "MM/dd/yy"
         val dateFormat = SimpleDateFormat(myFormat, Locale.US)
         date_birth.setText(dateFormat.format(myCalendar.getTime()))
+    }
+
+
+    fun screenTrack(screenClass:String , screenName: String){
+
+        analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW){
+
+            param(FirebaseAnalytics.Param.SCREEN_CLASS , screenClass)
+            param(FirebaseAnalytics.Param.SCREEN_NAME , screenName)
+
+        }
     }
 
 

@@ -8,6 +8,9 @@ import android.util.Log
 import android.widget.Switch
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,19 +25,24 @@ class MyTopicActivity : AppCompatActivity() {
     lateinit var progressDialog: ProgressDialog
     private lateinit var myTopicArrayList: ArrayList<TopicMoodle>
     private lateinit var auth: FirebaseAuth
+    private lateinit var analytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_topic)
 
+
         db = Firebase.firestore
         auth = Firebase.auth
+        analytics = Firebase.analytics
         progressDialog = ProgressDialog(this)
         progressDialog.setMessage("جاري تحميل البيانات")
         progressDialog.setCancelable(false)
         all_myTopic.layoutManager = LinearLayoutManager(this)
         myTopicArrayList = arrayListOf<TopicMoodle>()
         getAllMyTopic()
+
+        screenTrack("MyTopicActivity" , "MyTopic")
 
     }
 
@@ -83,6 +91,17 @@ class MyTopicActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.w("Read Data", "Error getting documents.", exception)
             }
+    }
+
+
+    fun screenTrack(screenClass:String , screenName: String){
+
+        analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW){
+
+            param(FirebaseAnalytics.Param.SCREEN_CLASS , screenClass)
+            param(FirebaseAnalytics.Param.SCREEN_NAME , screenName)
+
+        }
     }
 
 

@@ -27,7 +27,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="30dp"
             android:background="@null"
-            android:hint="Type a message"
+            android:hint="أدخل الرسالة"
             android:inputType="textMultiLine"
             android:maxLines="3"
             android:minHeight="48dp"

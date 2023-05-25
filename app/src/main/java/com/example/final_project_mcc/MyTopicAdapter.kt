@@ -2,12 +2,15 @@ package com.example.final_project_mcc
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -20,7 +23,7 @@ import kotlinx.android.synthetic.main.cart_mytopic.view.*
 class MyTopicAdapter(var activity: Activity, var data:ArrayList<TopicMoodle>): RecyclerView.Adapter<MyTopicAdapter.MyTopics>() {
 
     private lateinit var db: FirebaseFirestore
-
+    private lateinit var analytics: FirebaseAnalytics
 
     class MyTopics(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -37,6 +40,7 @@ class MyTopicAdapter(var activity: Activity, var data:ArrayList<TopicMoodle>): R
 
         val root = LayoutInflater.from(activity).inflate(R.layout.cart_mytopic, parent, false)
         db = Firebase.firestore
+        analytics = Firebase.analytics
         return  MyTopics(root)
 
     }
@@ -54,7 +58,7 @@ class MyTopicAdapter(var activity: Activity, var data:ArrayList<TopicMoodle>): R
             i.putExtra("TopicVideo", data[position].video)
             i.putExtra("TopicImage", data[position].image)
             i.putExtra("id" ,data[position].id)
-
+            logSelectContentEvent(data[position].id , data[position].name , "My Topics Selection" )
             activity.startActivity(i)
 
 
@@ -102,6 +106,16 @@ class MyTopicAdapter(var activity: Activity, var data:ArrayList<TopicMoodle>): R
 
 
         return data.size
+    }
+
+
+    private fun logSelectContentEvent(itemId: String, itemName: String, contentType: String) {
+        val params = Bundle().apply {
+            putString(FirebaseAnalytics.Param.ITEM_ID, itemId)
+            putString(FirebaseAnalytics.Param.ITEM_NAME, itemName)
+            putString(FirebaseAnalytics.Param.CONTENT_TYPE, contentType)
+        }
+        analytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, params)
     }
 
 

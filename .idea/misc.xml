@@ -24,6 +24,7 @@
         <entry key="..\:/Users/MSI/AndroidStudioProjects/Final_Project_MCC/app/src/main/res/layout/activity_chat.xml" value="0.20863616930312098" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/Final_Project_MCC/app/src/main/res/layout/activity_contacts.xml" value="0.14394259181089067" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/Final_Project_MCC/app/src/main/res/layout/activity_contacts_chatting.xml" value="0.15940685820203893" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/Final_Project_MCC/app/src/main/res/layout/activity_contacts_type.xml" value="0.20863616930312098" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/Final_Project_MCC/app/src/main/res/layout/activity_diseased.xml" value="0.25" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/Final_Project_MCC/app/src/main/res/layout/activity_doctor.xml" value="0.1" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/Final_Project_MCC/app/src/main/res/layout/activity_doctor_bottom_navigation.xml" value="0.20863616930312098" />
@@ -44,6 +45,7 @@
         <entry key="..\:/Users/MSI/AndroidStudioProjects/Final_Project_MCC/app/src/main/res/layout/fragment_f_g_home_doctor.xml" value="0.20863616930312098" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/Final_Project_MCC/app/src/main/res/layout/fragment_f_g_profile_doctor.xml" value="0.20863616930312098" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/Final_Project_MCC/app/src/main/res/layout/fragment_notification.xml" value="0.20863616930312098" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/Final_Project_MCC/app/src/main/res/layout/item_notification.xml" value="0.20863616930312098" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/Final_Project_MCC/app/src/main/res/layout/item_role.xml" value="0.20863616930312098" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/Final_Project_MCC/app/src/main/res/layout/item_topic.xml" value="0.20863616930312098" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/Final_Project_MCC/app/src/main/res/layout/message_item.xml" value="0.20863616930312098" />
@@ -53,7 +55,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

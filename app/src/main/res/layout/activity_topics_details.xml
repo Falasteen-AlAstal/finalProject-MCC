@@ -79,6 +79,7 @@
                 android:text="التعليقات"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
                 android:textColor="#000"
                 android:textSize="30sp"/>
 
@@ -111,7 +112,7 @@
                     android:layout_marginTop="16dp"
                     android:backgroundTint="#ffffff"
                     android:elevation="2dp"
-                    android:hint="Enter your comment "
+                    android:hint="أدخل تعليقك"
                     android:padding="16dp"
                     android:textColor="#000000"
                     android:textStyle="bold"

@@ -13,6 +13,9 @@ import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSource
 import com.google.android.exoplayer2.util.MimeTypes
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
@@ -30,14 +33,19 @@ class TopicsDetailsActivity : AppCompatActivity() {
     var playBackPosition: Long = 0
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
+    private lateinit var analytics: FirebaseAnalytics
     lateinit var progressDialog: ProgressDialog
     private lateinit var commentArrayList: ArrayList<CommentMoodle>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_topics_details)
 
+
+
+
         auth = Firebase.auth
         db = Firebase.firestore
+        analytics = Firebase.analytics
         val currentUser = auth.currentUser
         progressDialog = ProgressDialog(this)
         progressDialog.setMessage("جاري تحميل البيانات")
@@ -71,6 +79,8 @@ class TopicsDetailsActivity : AppCompatActivity() {
            }
 
         }
+
+        screenTrack("TopicsDetailsActivity" ,"TopicsDetails")
 
 
 
@@ -203,5 +213,18 @@ class TopicsDetailsActivity : AppCompatActivity() {
                 Toast.makeText(this, "حدث خطأ أثناء عرض التعليقات", Toast.LENGTH_SHORT).show()
             }
     }
+
+
+
+    fun screenTrack(screenClass:String , screenName: String){
+
+        analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW){
+
+            param(FirebaseAnalytics.Param.SCREEN_CLASS , screenClass)
+            param(FirebaseAnalytics.Param.SCREEN_NAME , screenName)
+
+        }
+    }
+
 
 }
