@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
@@ -58,6 +59,11 @@ class AddTopicDoctor : AppCompatActivity(), IPickResult {
         storage = Firebase.storage
         referance = storage.reference
 
+
+        FirebaseMessaging.getInstance().subscribeToTopic("all")
+        val titel = "hello"
+        val mes = "hi"
+
 //add
         btn_add.setOnClickListener {
             AddTopic(
@@ -68,6 +74,16 @@ class AddTopicDoctor : AppCompatActivity(), IPickResult {
                 txt_topic_inform.text.toString(),
                 pathvideo
             )
+            val notificationsSender = FcmNotificationsSender(
+                "/topics/all",
+                titel,
+                mes,
+                applicationContext,
+                this
+            )
+            notificationsSender.SendNotifications()
+
+
         }
 
         imageupload.setOnClickListener {
