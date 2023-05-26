@@ -34,11 +34,6 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
 
-
-
-
-
-
         role = intent.getStringExtra("role").toString()
         auth = Firebase.auth
         db = Firebase.firestore

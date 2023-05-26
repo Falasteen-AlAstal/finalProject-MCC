@@ -58,4 +58,6 @@ class FGHomeDoctor : Fragment() {
                     adapter!!.notifyDataSetChanged()
                 }
         }
+
+
     }

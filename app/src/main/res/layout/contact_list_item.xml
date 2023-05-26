@@ -22,6 +22,8 @@
         android:textColor="@color/black"
         android:textSize="22sp"
         android:textStyle="normal"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/contactImg"
         app:layout_constraintTop_toTopOf="parent" />

@@ -1,11 +1,19 @@
 package com.example.final_project_mcc
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.media.RingtoneManager
+import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
 import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -52,6 +60,8 @@ class LoginActivity : AppCompatActivity() {
             if (editEmail.text.toString().isNotEmpty() && editPassword.text.toString().isNotEmpty()
                 && (role == "doctor" || role == "Patient")){
                 signInAccount(editEmail.text.toString() , editPassword.text.toString())
+
+
 
             }else{
 
@@ -174,6 +184,50 @@ class LoginActivity : AppCompatActivity() {
         analytics.logEvent(FirebaseAnalytics.Event.LOGIN, null)
     }
 
+
+    private fun creatnotification() {
+        val channel_id = "Messaging"
+        val manager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val servicChanel = NotificationChannel(channel_id, "name", NotificationManager.IMPORTANCE_HIGH)
+            servicChanel.enableVibration(true)
+            servicChanel.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM), null)
+            manager.createNotificationChannel(servicChanel)
+        }
+
+        val notifiIntant = Intent(this, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(
+            this,
+            0,
+            notifiIntant,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse("https://www.google.ae")
+        val plntent = PendingIntent.getActivity(applicationContext, 100, intent, 0)
+
+        val notification = NotificationCompat.Builder(this, channel_id)
+            .setContentTitle("Messaging")
+            .setShowWhen(true)
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .setStyle(
+                NotificationCompat.InboxStyle()
+                    .addLine("Alex Check this out")
+                    .addLine("Jeff Check this out")
+                    .setBigContentTitle("2 new Masseges")
+                    .setSummaryText("serhanbalsam54@gmail.com")
+            )
+            .setSmallIcon(R.drawable.add_topic)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+            .addAction(R.drawable.add_topic, "openBrowser", plntent)
+            .addAction(R.drawable.add_topic, "open App", pendingIntent)
+            .build()
+
+        manager.notify(1, notification)
+    }
 
 
 

@@ -29,6 +29,11 @@ class AdapterTopic (var context: Context? = null ,private var datalist: ArrayLis
            intent.putExtra("topic_name", holder.txt_topic.text)
            context!!.startActivity(intent)
        }
+
+        holder.itemView.setOnLongClickListener{
+            datalist.removeAt(position)
+            true
+        }
     }
     override fun getItemCount(): Int {
         return datalist.size

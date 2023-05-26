@@ -37,8 +37,7 @@ class TopicAdapter (var activity: Activity, var data:ArrayList<TopicMoodle>): Re
     private lateinit var db: FirebaseFirestore
     private lateinit var analytics: FirebaseAnalytics
     var follow : Boolean = false
-    val titel = "hello"
-    val mes = "hi"
+
 
     class MyTopic(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
