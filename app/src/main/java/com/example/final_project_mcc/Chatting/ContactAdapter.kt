@@ -30,7 +30,7 @@ class ContactAdapter(var activity: Activity, var contactsList:ArrayList<ContactM
     }
 
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
-        holder.name.text = contactsList[position].firstName.plus(contactsList[position].middleName)
+        holder.name.text = contactsList[position].firstName.plus(" ").plus(contactsList[position].middleName).plus(" ")
             .plus(contactsList[position].lastName) //latsName
         holder.itemView.setOnClickListener {
             var i = Intent(activity,ContactsChatting::class.java)

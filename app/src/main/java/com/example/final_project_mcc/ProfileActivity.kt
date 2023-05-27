@@ -129,34 +129,6 @@ class ProfileActivity : AppCompatActivity() {
 
 
 
-    /*fun updateUser(firstName: String, middleName: String, lastName: String, dateBirth: String,
-                   address : String,
-                   email: String,
-                   phone :String)
-
-    {
-        val currentUser = auth.currentUser
-        val newData = hashMapOf<String, Any>()
-            newData["firstName"] = firstName
-            newData["middleName"] = middleName
-            newData["lastName"] = lastName
-            newData ["email"]  = email
-            newData["address" ] = address
-            newData["dateBirth"]  = dateBirth
-            newData ["phone" ] = phone
-
-
-        db.collection("users").document(currentUser!!.uid)
-            .update(newData)
-            .addOnSuccessListener {
-                Log.e("Update Data", "DocumentSnapshot successfully updated!")
-            }
-            .addOnFailureListener { e ->
-                Log.e("Update Data", "Error updating document" , e)
-
-            }
-    }*/
-
     fun updateUser(firstName: String, middleName: String, lastName: String,
                    dateBirth: String,
                    address: String,

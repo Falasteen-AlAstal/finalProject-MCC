@@ -58,6 +58,8 @@ class UpdateDeleteTopic : AppCompatActivity() , IPickResult {
         storage = Firebase.storage
         referance = storage.reference
 
+        path1video = ""
+
         getData()
 
         btn_update.setOnClickListener {
@@ -97,6 +99,7 @@ class UpdateDeleteTopic : AppCompatActivity() , IPickResult {
                         .toString()
                 ).into(img_update)
 
+               // initVideo()
             }
     }
 
@@ -106,7 +109,7 @@ class UpdateDeleteTopic : AppCompatActivity() , IPickResult {
         user["description"] = description
         user["information"] = information
         user["image"] = path1
-        user["video"] = path1video
+        //user["video"] = path1video
         DB.collection("topic").whereEqualTo("id",auth.currentUser!!.uid).get()
             .addOnSuccessListener { querySnapshot ->
                 DB.collection("topic").document( querySnapshot.documents.get(0).id)

@@ -111,7 +111,7 @@ class TopicAdapter (var activity: Activity, var data:ArrayList<TopicMoodle>): Re
                    Toast.makeText(activity, "حدث خطأ أثناء التحقق من الموضوع", Toast.LENGTH_SHORT).show()
                }
 
-           FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+          /* FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
                if(!task.isSuccessful()){
                    Log.e("bal","faild to get token")
                    return@addOnCompleteListener
@@ -121,7 +121,7 @@ class TopicAdapter (var activity: Activity, var data:ArrayList<TopicMoodle>): Re
                sendFCMMessage(token,"أصبحت تتابع هذا الموضوع")
 
 
-           }
+           }*/
 
 
 

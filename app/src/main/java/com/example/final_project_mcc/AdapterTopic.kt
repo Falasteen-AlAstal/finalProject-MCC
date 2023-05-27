@@ -35,6 +35,7 @@ class AdapterTopic (var context: Context? = null ,private var datalist: ArrayLis
             true
         }
     }
+
     override fun getItemCount(): Int {
         return datalist.size
     }

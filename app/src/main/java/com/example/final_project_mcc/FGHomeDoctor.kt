@@ -31,6 +31,7 @@ class FGHomeDoctor : Fragment() {
         recview = value.findViewById<View>(R.id.recyclerView) as RecyclerView
         FB = value.findViewById(R.id.normalFAB) as FloatingActionButton
 
+
         recview!!.layoutManager = LinearLayoutManager(context)
         adapter = AdapterTopic(context, arr)
         recview!!.adapter = adapter

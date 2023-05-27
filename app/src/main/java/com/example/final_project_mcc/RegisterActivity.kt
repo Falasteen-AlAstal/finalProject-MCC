@@ -94,7 +94,7 @@ class RegisterActivity : AppCompatActivity() {
 
 
 
-    private fun createNewAccount(email: String , password: String){
+  /*  private fun createNewAccount(email: String , password: String){
 
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
 
@@ -126,8 +126,43 @@ class RegisterActivity : AppCompatActivity() {
             }
 
         }
-    }
+    }*/
 
+    private fun createNewAccount(email: String, password: String) {
+        val confirmPassword = confirmation_Password.text.toString()
+
+        if (password == confirmPassword) {
+            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    Log.d("Falasteen Auth", "createUserWithEmail:success")
+                    Toast.makeText(this, "نجح التسجيل", Toast.LENGTH_SHORT).show()
+                    addUserToDB(
+                        user!!.uid,
+                        First_Name.text.toString(),
+                        middle_name.text.toString(),
+                        last_name.text.toString(),
+                        date_birth.text.toString(),
+                        edit_Text_Address.text.toString(),
+                        editText_Email.text.toString(),
+                        editText_Phone.text.toString(),
+                        editText_Password.text.toString(),
+                        role
+                    )
+
+                    logSignUpEvent()
+
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Log.d("Falasteen Auth", "createUserWithEmail:failure")
+                    Toast.makeText(this, "فشل التسجيل", Toast.LENGTH_SHORT).show()
+                }
+            }
+        } else {
+            Toast.makeText(this, "كلمة المرور وتأكيد كلمة المرور غير متطابقتين", Toast.LENGTH_SHORT).show()
+        }
+    }
 
 
     private fun addUserToDB(id : String, firstName: String, middleName: String, lastName: String, dateBirth: String,

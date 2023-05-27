@@ -67,7 +67,7 @@
         android:minHeight="48dp"
         android:padding="10dp" />
 
-    <EditText
+    <TextView
         android:id="@+id/date_birthprof"
         android:layout_width="315dp"
         android:layout_height="wrap_content"
@@ -132,6 +132,16 @@
             android:backgroundTint="#2196F3"
             android:padding="17dp"
             android:text="تعديل البيانات" />
+
+        <Button
+            android:id="@+id/butLogoutprof"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#2196F3"
+            android:padding="17dp"
+            android:text="تسجيل خروج"
+
+            />
 
     </LinearLayout>
 
