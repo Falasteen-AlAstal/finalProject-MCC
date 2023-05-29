@@ -24,7 +24,6 @@ class ContactsChatting : AppCompatActivity() {
     private lateinit var messagesRecyclerView: RecyclerView
     private lateinit var messageEditText: EditText
     private lateinit var sendButton: Button
-
     private lateinit var senderUid: String
     private lateinit var receiverUid: String
     private lateinit var chatId: String

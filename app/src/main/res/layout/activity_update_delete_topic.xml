@@ -17,28 +17,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.exoplayer2.ui.PlayerView
-                    android:id="@+id/video"
-                    android:layout_width="380dp"
-                    android:layout_height="195dp"
-                    android:layout_margin="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                <com.google.android.exoplayer2.ui.PlayerView-->
+<!--                    android:id="@+id/video"-->
+<!--                    android:layout_width="380dp"-->
+<!--                    android:layout_height="195dp"-->
+<!--                    android:layout_margin="10dp"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-        <ImageButton
-            android:id="@+id/img_update"
-            android:layout_width="376dp"
-            android:layout_height="173dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/camerabtnshape"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.31"
-            app:srcCompat="@drawable/baseline_camera_24" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/img_update"-->
+<!--            android:layout_width="376dp"-->
+<!--            android:layout_height="173dp"-->
+<!--            android:layout_marginBottom="10dp"-->
+<!--            android:background="@drawable/camerabtnshape"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/linearLayout"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.497"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.31"-->
+<!--            app:srcCompat="@drawable/baseline_camera_24" />-->
 
         <EditText
             android:id="@+id/update_nameTopic"

@@ -27,14 +27,12 @@ import com.vansuita.pickimage.dialog.PickImageDialog
 import com.vansuita.pickimage.listeners.IPickResult
 import kotlinx.android.synthetic.main.activity_update_delete_topic.btn_Delete
 import kotlinx.android.synthetic.main.activity_update_delete_topic.btn_update
-import kotlinx.android.synthetic.main.activity_update_delete_topic.img_update
 import kotlinx.android.synthetic.main.activity_update_delete_topic.update_descTopic
 import kotlinx.android.synthetic.main.activity_update_delete_topic.update_information
 import kotlinx.android.synthetic.main.activity_update_delete_topic.update_nameTopic
-import kotlinx.android.synthetic.main.activity_update_delete_topic.video
 import java.util.UUID
 
-class UpdateDeleteTopic : AppCompatActivity() , IPickResult {
+class UpdateDeleteTopic : AppCompatActivity() {
     lateinit var auth: FirebaseAuth
     lateinit var path1: String
     lateinit var DB: FirebaseFirestore
@@ -44,7 +42,7 @@ class UpdateDeleteTopic : AppCompatActivity() , IPickResult {
     var palyerRead = true
     var currentwindo = 0
     var playerpostion:Long = 0
-    lateinit var path1video: String
+ //   lateinit var path1video: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_delete_topic)
@@ -58,7 +56,7 @@ class UpdateDeleteTopic : AppCompatActivity() , IPickResult {
         storage = Firebase.storage
         referance = storage.reference
 
-        path1video = ""
+        //path1video = ""
 
         getData()
 
@@ -66,9 +64,9 @@ class UpdateDeleteTopic : AppCompatActivity() , IPickResult {
             updateTopic(update_nameTopic.text.toString(),update_descTopic.text.toString(),update_information.text.toString())
         }
 
-        img_update.setOnClickListener {
-            PickImageDialog.build(PickSetup()).show(this)
-        }
+//        img_update.setOnClickListener {
+//            PickImageDialog.build(PickSetup()).show(this)
+//        }
 
         btn_Delete.setOnClickListener{
             var tv_namer=intent!!.getStringExtra("topic_name")
@@ -94,10 +92,10 @@ class UpdateDeleteTopic : AppCompatActivity() , IPickResult {
                 update_nameTopic.setText(querySnapshot.documents!!.get(0).get("name").toString())
                 update_descTopic.setText(querySnapshot.documents!!.get(0).get("description").toString())
                 update_information.setText(querySnapshot.documents.get(0).get("information").toString())
-                Picasso.get().load(
-                    querySnapshot.documents.get(0).get("image")
-                        .toString()
-                ).into(img_update)
+//                Picasso.get().load(
+//                    querySnapshot.documents.get(0).get("image")
+//                        .toString()
+//                ).into(img_update)
 
                // initVideo()
             }
@@ -108,7 +106,7 @@ class UpdateDeleteTopic : AppCompatActivity() , IPickResult {
         user["name"] = name
         user["description"] = description
         user["information"] = information
-        user["image"] = path1
+      //  user["image"] = path1
         //user["video"] = path1video
         DB.collection("topic").whereEqualTo("id",auth.currentUser!!.uid).get()
             .addOnSuccessListener { querySnapshot ->
@@ -123,59 +121,59 @@ class UpdateDeleteTopic : AppCompatActivity() , IPickResult {
 
     }
 
-    override fun onPickResult(r: PickResult?) {
+//    override fun onPickResult(r: PickResult?) {
+//
+//        img_update.setImageBitmap(r!!.bitmap)
+//        upoladImage(r.uri)
+//    }
 
-        img_update.setImageBitmap(r!!.bitmap)
-        upoladImage(r.uri)
-    }
+//    private fun upoladImage(uri: Uri) {
+//        // progressDialoge!!.show()
+//        referance.child("profile/" + UUID.randomUUID().toString()).putFile(uri)
+//            .addOnSuccessListener { taskSnapshot ->
+//                //      progressDialoge!!.hide()
+//                Toast.makeText(this, "تم التحميل ", Toast.LENGTH_LONG).show()
+//
+//                taskSnapshot.storage.downloadUrl.addOnSuccessListener { uri ->
+//                    path1 = uri.toString()
+//                }
+//            }.addOnFailureListener {
+//                Toast.makeText(this, "فشل التحميل ", Toast.LENGTH_LONG).show()
+//            }
+//    }
 
-    private fun upoladImage(uri: Uri) {
-        // progressDialoge!!.show()
-        referance.child("profile/" + UUID.randomUUID().toString()).putFile(uri)
-            .addOnSuccessListener { taskSnapshot ->
-                //      progressDialoge!!.hide()
-                Toast.makeText(this, "تم التحميل ", Toast.LENGTH_LONG).show()
-
-                taskSnapshot.storage.downloadUrl.addOnSuccessListener { uri ->
-                    path1 = uri.toString()
-                }
-            }.addOnFailureListener {
-                Toast.makeText(this, "فشل التحميل ", Toast.LENGTH_LONG).show()
-            }
-    }
-
-        fun initVideo(){
-        player = SimpleExoPlayer.Builder(this).build()
-        video.player = player
-
-        val mediaItem = MediaItem.Builder().setUri(path1video).setMimeType(MimeTypes.APPLICATION_MP4).build()
-
-        val mediasource = ProgressiveMediaSource.Factory(
-            DefaultDataSource.Factory(this)
-        ).createMediaSource(mediaItem)
-        player!!.playWhenReady = palyerRead
-        player!!.seekTo(currentwindo,playerpostion)
-        player!!.prepare(mediasource,false,false)
-    }
-
-    fun releseVideo(){
-        if(player !=null){
-            palyerRead = player!!.playWhenReady
-            playerpostion = player!!.currentPosition
-            currentwindo = player!!.currentWindowIndex
-            player!!.release()
-            player = null
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        releseVideo()
-        initVideo()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        releseVideo()
-    }
+//        fun initVideo(){
+//        player = SimpleExoPlayer.Builder(this).build()
+//        video.player = player
+//
+//        val mediaItem = MediaItem.Builder().setUri(path1video).setMimeType(MimeTypes.APPLICATION_MP4).build()
+//
+//        val mediasource = ProgressiveMediaSource.Factory(
+//            DefaultDataSource.Factory(this)
+//        ).createMediaSource(mediaItem)
+//        player!!.playWhenReady = palyerRead
+//        player!!.seekTo(currentwindo,playerpostion)
+//        player!!.prepare(mediasource,false,false)
+//    }
+//
+//    fun releseVideo(){
+//        if(player !=null){
+//            palyerRead = player!!.playWhenReady
+//            playerpostion = player!!.currentPosition
+//            currentwindo = player!!.currentWindowIndex
+//            player!!.release()
+//            player = null
+//        }
+//    }
+//
+//    override fun onStart() {
+//        super.onStart()
+//        releseVideo()
+//        initVideo()
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        releseVideo()
+//    }
 }
